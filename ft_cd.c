@@ -1,0 +1,102 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/31 18:38:01 by viclucas          #+#    #+#             */
+/*   Updated: 2018/05/17 20:18:50 by viclucas         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft/includes/libft.h"
+#include "ft_21sh.h"
+#include <stdlib.h>
+
+char		**ft_cd_into_home(char **env)
+{
+	int i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strnequ(env[i], "HOME=", 5) == 1)
+		{
+			chdir(&env[i][5]);
+			env = ft_check_pwd(env);
+			return (env);
+		}
+		i++;
+	}
+	ft_putendl("no environnement variable \"HOME\"");
+	return (env);
+}
+
+char		**ft_cd_minus(char **env)
+{
+	int		i;
+	char	*s;
+	char	*buf;
+
+	buf = NULL;
+	i = 0;
+	if ((buf = getcwd(buf, 0)) == NULL)
+		return (NULL);
+	while (env[i++])
+	{
+		if (ft_strnequ(env[i], "OLDPWD=", 7) == 1)
+		{
+			s = ft_strjoin("OLDPWD=", buf);
+			chdir(&env[i][7]);
+			ft_putendl(&env[i][7]);
+			env = ft_get_into_env(env, s);
+			ft_strdel(&s);
+			env = ft_check_pwd(env);
+			ft_strdel(&buf);
+			return (env);
+		}
+	}
+	env = ft_check_old(env);
+	env = ft_check_pwd(env);
+	return (env);
+}
+
+int			ft_parcing_cd(char *s, char **board)
+{
+	int		i;
+	char	*var;
+
+	i = 0;
+	if (s[2] && s[2] != ' ')
+		return (ft_error("21sh: command not found: ", s));
+	if (!board[1])
+		return (0);
+	if (board[2])
+	{
+		return (ft_error("cd: too many arguments", NULL));
+	}
+	if (ft_strequ(board[1], "-") == 0 && ft_strequ(board[1], "~") == 0)
+	{
+		if ((var = ft_acces(board[1])) != NULL)
+			return (ft_error(var, NULL));
+	}
+	return (0);
+}
+
+char		**ft_cd(char *s, char **env, char **board)
+{
+	int i;
+
+	i = 0;
+	if (ft_parcing_cd(s, board) == -1)
+		return (env);
+	if (ft_strequ(board[1], "-") == 1)
+		return (ft_cd_minus(env));
+	env = ft_check_old(env);
+	if (!board[1] || ft_strequ(board[1], "~") == 1)
+		return (ft_cd_into_home(env));
+	chdir(board[1]);
+	env = ft_check_pwd(env);
+	return (env);
+}
