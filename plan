@@ -16,10 +16,11 @@ copier/coller -> bugs simples;
 PARSING
 gerer pipes toute fin de ligne;
 avancer plus si le token est ">&-", etc...
+remettre lautre rediction2.c
 
-
-
-
+signal(sig, void (*f)(int));
+if (ls | erger)
+	kill ls quand on tombe 	sur l'erreure
 
 gerer ctr + d, ctr + c pour la seconde partie
 bugs termaps

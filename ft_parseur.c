@@ -6,7 +6,7 @@
 /*   By: vimarkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 11:39:41 by vimarkov          #+#    #+#             */
-/*   Updated: 2018/05/28 17:08:59 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/28 20:37:30 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_21sh.h"
@@ -89,9 +89,9 @@ char	**ft_parseur(char *line, char **env, char **tokens)
 		good_board = ft_create_board(board[i], ' ', -1);
 		if (good_board)
 		{	
+			//print_db(good_board);
 			ft_remove_quotes(good_board);
-			print_db(good_board);
-			//env = ft_find_option(line, env, good_board);
+			env = ft_find_option(line, env, good_board);
 			ft_free_db_tab(good_board);
 		}
 		i++;

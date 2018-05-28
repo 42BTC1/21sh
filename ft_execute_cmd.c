@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 17:30:35 by viclucas          #+#    #+#             */
-/*   Updated: 2018/05/28 16:37:18 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/28 20:11:38 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ char	**ft_tests_exec(char **tests, char **env, char **board)
 {
 	char		*ret;
 	char		*name;
-	char		**flag;
 
-	flag = ft_flag(board);
 	if (ft_check_str(*board, '/') == 1)
 	{
 		if (ft_check_it(board) == -1)
@@ -67,9 +65,9 @@ char	**ft_tests_exec(char **tests, char **env, char **board)
 	if ((ret = ft_allocate_parsing(tests, board)) == NULL)
 		return (tests);
 	name = ft_sous_d(ret, *board);
-	if(ft_check_char(board) == 1)
-		ft_redirection(name, board);
-	else if(ft_check_char(board) == 0)
+	if (ft_check_char(board) == 1)
+		ft_redirection(name, board, env);
+	else if (ft_check_char(board) == 0)
 	if (ft_execution(name, env, board) == -1)
 	{
 		ft_strdel(&name);

@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 17:13:39 by viclucas          #+#    #+#             */
-/*   Updated: 2018/05/28 16:29:21 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/28 20:44:43 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ int			ft_first_redir(char **board, char *name, char *opn_err, char *opn_dir);
 int			ft_sec_redir(char **board, char *name, char *opn_dir);
 int		ft_check_dup(char **board);
 int		ft_output(char **flag);
-int ft_redirection(char *name, char **board);
+int ft_redirection(char *name, char **board, char **env);
 char	**ft_cut_tab(char **board, char **flag);
 int ft_check_char(char **board);
 char **ft_flag(char **board);
 char	**ft_find_option(char *line, char **env, char **board);
 char		**ft_realloc_for_re(char **env, char *board);
 char		**ft_realloc_for_exe(char **env, char *board, char **cpy);
-void			ft_run_exec(char ***ret);
+int				ft_run_exec(char **boar, char **env);
 int			ft_pipe_exec1(char **board, char **flag, char **env);
 
 

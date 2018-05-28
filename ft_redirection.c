@@ -6,7 +6,7 @@
 /*   By: vimarkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 19:28:41 by vimarkov          #+#    #+#             */
-/*   Updated: 2018/05/28 16:27:58 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/28 20:48:01 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ int		ft_output(char **flag)
 	return(0);
 }
 
-int		ft_redirection(char *name, char **board)
+int		ft_redirection(char *name, char **board, char **env)
 {
 	char		*opn_dir;
 	char		*opn_err;
@@ -204,6 +204,9 @@ int		ft_redirection(char *name, char **board)
 	i = 0;
 	opn_dir = NULL;
 	opn_err = NULL;
+	
+	if (ft_run_exec(board, env) == 0)
+		return (0);
 	if(ft_check_dup(board) == 1)
 		ft_first_redir(board, name, opn_err, opn_dir);
 	if(ft_check_dup(board) == 0)

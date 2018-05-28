@@ -6,7 +6,7 @@
 #    By: viclucas <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/24 14:01:50 by viclucas          #+#    #+#              #
-#    Updated: 2018/05/28 16:30:34 by viclucas         ###   ########.fr        #
+#    Updated: 2018/05/28 20:38:05 by viclucas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRC =	main.c   ft_access.c \
 		ft_redirection2.c \
 		ft_parseur.c \
 		ft_exec.c \
-		ft_exec_tab.c \
 		ft_check_char.c \
 		term/ft_term_gestion.c \
 		term/ft_termcaps.c \

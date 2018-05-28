@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 09:36:50 by viclucas          #+#    #+#             */
-/*   Updated: 2018/05/28 16:29:45 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/28 20:08:48 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,17 @@ void	ft_change_length(int nb)
 void		ft_reprint(t_storage *x, char *line)
 {
 	int i;
+	(void)x;
+	(void)line;
+	/*
 	i = x->nb_char + 3 / x->length;
 	while (i--)
 		tputs(tgetstr("dl", NULL), 1, &fct);
+	if (line)
 	ft_putstr(line);	
+	*/
+	i = 0;
+	ft_putstr(" c'est pas gerer fdp");
 }
 
 int			ft_signaux(int window, t_storage *x, char *line)

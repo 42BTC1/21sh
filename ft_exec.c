@@ -28,8 +28,10 @@ int			ft_pipe_exec(char ***cmd, char **str)
 				dup2(p[1], 1);
 			close(p[0]);
 			if(execve(*str, *cmd, NULL) == -1)
-				return (ft_error("21sh: command not found: ", *str));
-			exit(EXIT_FAILURE);
+			{
+				ft_error("21sh: command not found: ", *str);
+				exit(-1);
+			}
 		}
 		else
 		{
@@ -70,6 +72,8 @@ char ***ft_triple_tab(char **board)
 			n++;
 		i++;
 	}
+	if (n == 0)
+		return (NULL);
 	if(!(ret = (char***)malloc(sizeof(char**) * (n + 2))))
 		return (NULL);
 	i = 0;
@@ -91,7 +95,7 @@ char ***ft_triple_tab(char **board)
 	return (ret);
 }
 
-void			ft_run_exec(char **board, char **env)
+int			ft_run_exec(char **board, char **env)
 {
 	int i;
 	char ***pipe;
@@ -102,20 +106,22 @@ void			ft_run_exec(char **board, char **env)
 	last_tab = NULL;
 	tableau = NULL;
 	i = 0;
-	pipe = ft_triple_tab(board);
+	if  (!(pipe = ft_triple_tab(board)))
+		return (1);
 	name = ft_allocate(env);
 	if (!pipe || !name)
-		return ;
+		return (1);
 	while (pipe[i])
 	{
 		tableau = ft_realloc_for_re(tableau, ft_allocate_parsing(name, pipe[i]));
 		i++;
 	}
 	if (!(last_tab = (char**)malloc(sizeof(char*) * (i + 1))))
-			return ;
+			return (-1);
 	i = -1;
 	while (tableau[++i])
 		last_tab[i] = ft_souder(tableau[i], pipe[i][0], "/");
 	last_tab[i] = NULL;
 	ft_pipe_exec(pipe, last_tab);
+	return (0);
 }

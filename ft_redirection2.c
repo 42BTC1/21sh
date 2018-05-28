@@ -6,7 +6,7 @@
 /*   By: vimarkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:27:28 by vimarkov          #+#    #+#             */
-/*   Updated: 2018/05/28 16:37:52 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/28 20:17:11 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/includes/libft.h"
@@ -39,6 +39,7 @@ int			ft_first_redir(char **board, char *name, char *opn_err, char *opn_dir)
 	{
 		while(board[i])
 		{
+			ft_putendl(board[i]);
 			if (ft_strequ(board[i], ">") == 1)
 			{
 				opn_dir = ft_strdup(board[i + 1]);
@@ -68,17 +69,9 @@ int			ft_first_redir(char **board, char *name, char *opn_err, char *opn_dir)
 				dup2(fd, 2);
 			i++;
 		}
-		if (ft_strequ(board[i], "|") == 1)
-		{
-			//ft_run_exec();
-			exit(1);
-		}
-		else
-		{
 			if (execve(name, cut, NULL) == -1)
 				return (-1);
 			return (0);
-		}
 	}
 	wait(&pid);
 	return (0);
@@ -133,11 +126,6 @@ int			ft_sec_redir(char **board, char *name, char *opn_dir)
 			{
 				close(pp[1]);
 				dup2(pp[0], 0);
-				if (ft_output(flag) == 4)
-				{
-					//ft_run_exec();
-					exit(1);
-				}
 				if (execve(name, cut, NULL) == -1)
 					return (-1);
 				return (0);
@@ -150,12 +138,6 @@ int			ft_sec_redir(char **board, char *name, char *opn_dir)
 	else if (pid == 0)
 	{
 		dup2(fd, 0);
-		if (ft_output(flag) == 4)
-		{
-			//ft_run_exec();
-			exit(1);
-		}
-		else
 			if (execve(name, cut, NULL) == -1)
 				return (-1);
 		return(0);
