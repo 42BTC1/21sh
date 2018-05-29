@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exec.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/29 17:58:13 by viclucas          #+#    #+#             */
+/*   Updated: 2018/05/29 18:56:33 by viclucas         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/includes/libft.h"
 #include "libft/includes/get_next_line.h"
 #include "ft_21sh.h"
@@ -14,6 +26,7 @@ int			ft_pipe_exec(char ***cmd, char **str)
 	pid_t pid;
 	int   fd_in;
 	fd_in = 0;
+
 	while (*cmd != NULL)
 	{
 		pipe(p);
@@ -29,7 +42,7 @@ int			ft_pipe_exec(char ***cmd, char **str)
 			close(p[0]);
 			if(execve(*str, *cmd, NULL) == -1)
 			{
-				ft_error("21sh: command not found: ", *str);
+//				kill(p[1], -1);
 				exit(-1);
 			}
 		}
@@ -50,6 +63,7 @@ int		ft_strlen_pipe(char **board)
 	int i;
 
 	i = 0;
+
 	while (board[i] && ft_strequ(board[i], "|") == 0)
 		i++;
 	return (i);
@@ -102,7 +116,7 @@ int			ft_run_exec(char **board, char **env)
 	char **name;
 	char	**tableau;
 	char	**last_tab;
-
+	char *tmp;
 	last_tab = NULL;
 	tableau = NULL;
 	i = 0;
@@ -113,7 +127,9 @@ int			ft_run_exec(char **board, char **env)
 		return (1);
 	while (pipe[i])
 	{
-		tableau = ft_realloc_for_re(tableau, ft_allocate_parsing(name, pipe[i]));
+		if (!(tmp = ft_allocate_parsing(name, pipe[i])))
+			return (0);
+		tableau = ft_realloc_for_re(tableau, tmp);
 		i++;
 	}
 	if (!(last_tab = (char**)malloc(sizeof(char*) * (i + 1))))

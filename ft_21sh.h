@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 17:13:39 by viclucas          #+#    #+#             */
-/*   Updated: 2018/05/28 20:44:43 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/29 18:38:07 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 extern int g_window;
 
+#include <signal.h>
+#include <sys/types.h>
 #include <termios.h>
 #include <term.h>
 #include <stdlib.h>
@@ -79,7 +81,7 @@ int			ft_pipe_exec1(char **board, char **flag, char **env);
 
 
 
-
+int			ft_access_redir(char *s);
 int		ft_check_char(char **board);
 int		ft_very_first_check(char *line);
 void	ft_quotes_check(t_tab *x, char c);

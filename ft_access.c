@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 12:49:53 by viclucas          #+#    #+#             */
-/*   Updated: 2018/05/23 18:29:16 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/29 18:48:08 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,26 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
+
+int			ft_access_redir(char *s)
+{
+	struct stat		buf;
+
+	lstat(s, &buf);
+	if (access(s, F_OK) == -1)
+		return (ft_error("21sh: no such file or directory: ", s));
+	else if (access(s, X_OK) == -1)
+	{
+		lstat(s, &buf);
+		if (S_ISDIR(buf.st_mode) == 1)
+			return (ft_error("21sh: is a directory: ", s));
+		return (ft_error("21sh: permission denied: ", s));
+	}
+	if (S_ISDIR(buf.st_mode) == 1)
+		return (ft_error("21sh: is a directory: ", s));
+
+	return (0);
+}
 
 int			ft_access_exec(char *test, char *board)
 {

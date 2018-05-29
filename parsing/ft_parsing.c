@@ -6,12 +6,22 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 14:41:00 by viclucas          #+#    #+#             */
-/*   Updated: 2018/05/28 17:07:15 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/29 18:59:52 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_21sh.h"
 #include "../libft/includes/libft.h"
+
+int		ft_check_last(char *line, int i)
+{
+	while (i > 0 && line[i] == ' ')
+		i--;		
+	if (line[i] == '|' || line[i] == '>' || line[i] == '<')
+			return (-1);
+	return (0);
+
+}
 
 int		ft_tokens(char *line, int i)
 {
@@ -77,8 +87,11 @@ int		ft_parsing_by_line(char *line)
 						return (ft_error("21sh: syntax error near unexpected token", NULL));
 				}
 				pipe = 0;
+			if (line[i])
 				i++;
 		}
+		if (ft_check_last(line, i - 1) == -1)
+			return (ft_error("21sh: syntax error near unexpected token", NULL));
 		return (0);
 }
 
@@ -89,7 +102,7 @@ char	**ft_parsing(char **board)
 		i = 0;
 		while (board[i])
 		{
-				if (ft_parsing_by_line(board[i]) == -1)
+			if (ft_parsing_by_line(board[i]) == -1)
 						return (NULL);
 				board[i] = ft_put_some_blanks(board[i]);
 				i++;

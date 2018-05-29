@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 12:48:04 by viclucas          #+#    #+#             */
-/*   Updated: 2018/05/28 16:33:51 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/29 18:48:23 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_21sh(char **env)
 	board = NULL;
 	line = NULL;
 	tokens = ft_allocate_tokens();
+	//signal(SIGINT, ); 
 	while (1)
 	{
 		ft_putstr("$> ");
@@ -65,7 +66,6 @@ void	ft_21sh(char **env)
 		ft_putchar('\n');
 		if (line)
 		{
-//			if (ft_parsing(&line, tokens) == 1)
 			env = ft_parseur(line, env, tokens);
 			ft_strdel(&line);
 		}

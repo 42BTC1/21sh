@@ -25,4 +25,3 @@ if (ls | erger)
 gerer ctr + d, ctr + c pour la seconde partie
 bugs termaps
 ameliorer fct creatrices d'espaces. > verif mais looks good
-explications sur ft_check_char, comment il chopait le fait que ce soit un token ou non, pourquoi, es-ce trop lourd en terme d'operations ?

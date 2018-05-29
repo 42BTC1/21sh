@@ -6,7 +6,7 @@
 /*   By: vimarkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:27:28 by vimarkov          #+#    #+#             */
-/*   Updated: 2018/05/28 20:17:11 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/29 19:06:51 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/includes/libft.h"
@@ -39,30 +39,45 @@ int			ft_first_redir(char **board, char *name, char *opn_err, char *opn_dir)
 	{
 		while(board[i])
 		{
-			ft_putendl(board[i]);
 			if (ft_strequ(board[i], ">") == 1)
 			{
 				opn_dir = ft_strdup(board[i + 1]);
-				fd = open(opn_dir, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+				if ((fd = open(opn_dir, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)) == -1)
+				{
+					ft_access_redir(board[i + 1]);
+					exit(-1);
+				}
 				dup2(fd, 1);
 			}
 			if (ft_strequ(board[i], ">>") == 1)
 			{
 				opn_dir = ft_strdup(board[i + 1]);
-				fd = open(opn_dir, O_CREAT | O_APPEND | O_WRONLY, 0666);
+				if ((fd = open(opn_dir, O_CREAT | O_APPEND | O_WRONLY, 0666)) == -1)
+				{	
+					ft_access_redir(board[i + 1]);
+					exit(-1);
+				}
 				dup2(fd, old_fd);
 				ft_putnbr(i);
 			}
 			if (ft_strequ(board[i], "2>") == 1)
 			{
 				opn_err = ft_strdup(board[i + 1]);
-				fd = open(opn_err, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+				if ((fd = open(opn_err, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR) == -1))
+				{
+					ft_access_redir(board[i + 1]);
+					exit(-1);
+				}
 				dup2(fd, 2);
 			}
 			if (ft_strequ(board[i], "2>>") == 1)
 			{
 				opn_err = ft_strdup(board[i + 1]);
-				fd = open(opn_err, O_CREAT | O_APPEND | O_WRONLY, 0666);
+				if ((fd = open(opn_err, O_CREAT | O_APPEND | O_WRONLY, 0666)) == -1)
+				{
+					ft_access_redir(board[i + 1]);
+					exit(-1);
+				}	
 				dup2(fd, 2);
 			}
 			if (ft_strequ(board[i], "2>&1") == 1)

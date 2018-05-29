@@ -6,7 +6,7 @@
 /*   By: vimarkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 11:39:41 by vimarkov          #+#    #+#             */
-/*   Updated: 2018/05/28 20:37:30 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/29 18:54:26 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_21sh.h"
@@ -64,10 +64,10 @@ char	**ft_create_board(char *line, char c, int number)
 		while (line[x.i] && line[x.i] != c)
 			ft_quotes_check(&x, line[x.i++]);
 		if ((line[x.i] == c && x.flag1 == 0 && x.flag2 == 0) ||
-			line[x.i] == '\0')
+				line[x.i] == '\0')
 			board = ft_keep_board(board, line, &x.i, &x.o);
 		if (line[x.i] == c)
-				x.i++;
+			x.i++;
 	}
 	return (board);
 }
@@ -78,6 +78,7 @@ char	**ft_parseur(char *line, char **env, char **tokens)
 	char	**good_board;
 	int		i;
 	(void)tokens;
+
 	i = 0;
 	if (ft_very_first_check(line) == -1)
 		return (env);

@@ -6,7 +6,7 @@
 /*   By: viclucas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 15:41:02 by viclucas          #+#    #+#             */
-/*   Updated: 2018/05/21 19:43:45 by viclucas         ###   ########.fr       */
+/*   Updated: 2018/05/29 19:00:20 by viclucas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_put_some_blanks(char *line)
 		if (line[x.i] == '"' || line[x.i] == '\'')
 			ft_quotes_check(&x, line[x.i]);
 		if (x.flag1 == 0 && x.flag2 == 0 && 
-			ft_tokens(line, x.i) == 1)
+			ft_tokens(line, x.i) >= 1)
 			line = ft_add_blanks(line, &x);
 		x.i++;
 	}
